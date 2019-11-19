@@ -1,0 +1,138 @@
+#calculate the number of cells
+
+#read the images
+
+import numpy as np
+import cv2
+from matplotlib import pyplot as plt
+from PIL import Image
+import math
+
+#图片名字    img
+#图片宽    Ncol
+#图片高    Nrow
+
+
+#the direction of img
+filename = '/Users/dongjizheng/Downloads/cell01.png'
+
+#read the gray img
+#using opencv
+#imgCV=cv.imread(filename,0)
+#or
+img=Image.open(filename)
+
+#show the img
+img.show()
+
+
+
+n_col,n_row=img.size
+
+#转换成灰度图像
+
+img=img.convert("L")
+
+img.show()
+
+
+
+
+#transform to matrix
+
+data=img.getdata()
+
+data=np.matrix(data,dtype='float')/255.0
+
+data/255.0
+
+new_data=np.reshape(data,(n_col,n_row))
+
+new_data
+
+
+
+
+#中值滤波#
+def median_filtering(data):
+    col=[-1,-1,-1,-1,-1,-1,-1,-1,-1]
+    new_data=[]
+    for i in range(1,n_row):
+        for j in range(1,n_col):
+            for k in range(0,9):
+                col[k]=data[i-1+k/3][i-1+k%3]
+            
+            for m in range(0,9):
+                p=m
+                for n in range(m,9):
+                    if(col[n]<col[m]):
+                        p=n
+                if(p!=m):
+                        temp=col[m]
+                        col[m]=col[p]
+                        col[p]=temp
+                        
+            new_data[i][j]=col[4]
+    return new_data
+    
+    
+    
+    
+    
+    
+#a test of matrix
+data_test=[[1,2],[3,4]]
+data_test[0][0]=0
+data_test[0][0]
+
+
+import math
+def Gauss(x):
+    sigma=1;
+    fx=math.exp((-x)*x/(2.0*sigma*sigma))
+    fx=fx/(2.0*math.pi*sigma*sigma)
+    return fx
+ 
+ 
+ 
+ 
+    
+#a plot of sin(x)
+x_temp=np.arange(0,10,0.1)
+fx=np.arange(0,10,0.1)
+for i in range(0,100):
+    fx[i]=math.sin(x_temp[i])
+plt.plot(x_temp,fx)    
+
+
+
+
+
+
+
+#一段数字的细胞矩阵
+#未完成
+
+dr=[[-1,0],[1,0],[0,-1],[0,1]]
+
+def search(x,y):
+    for i in range(0,4):
+        nx=x+dr[i][0]
+        ny=y+dr[i][1]
+        if(b[nx][ny]):
+            search(nx,ny)
+
+def count(data):
+    
+    for i in range(1,n_row):
+        for j in range(1,n_col):
+            if(data!=0):
+                b[i][j]=1
+                
+    for i in range(1,n_row):
+        for j in range(1,n_col):
+            if(b[i][j]):
+                search(i,j)
+                ans=ans+1
+    return ans
+

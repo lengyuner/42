@@ -45,7 +45,7 @@ LaTeX（section-subsection等）
 
 文学类论文写作可以看这个，讲解得更加详细
 
-[学术论文规范](https://pan.baidu.com/s/1b9HokPGrAEFx8rlOWZFa0w)
+[学术论文规范](https://github.com/lengyuner/42/blob/master/Standard_of_academic_paper/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87%E8%A7%84%E8%8C%83.ppt)
 
 作者南京大学吴钦根
  
